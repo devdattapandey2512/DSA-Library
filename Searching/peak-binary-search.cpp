@@ -4,7 +4,7 @@ using namespace std;
 
 int peak_binary_search(int arr[], int l, int h, int n)           //finding peak number using binary search
 {                                                                //O(logN)
-    if (l > h)
+    if (l > h)                                                   //no need of array to be sorted   
         return -1;
 
     int mid = l + (h - l) / 2;
