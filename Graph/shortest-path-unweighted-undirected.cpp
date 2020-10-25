@@ -19,7 +19,7 @@ void Addedge(vector<int> adj[], int u, int v)
 }  
 void shortest_path(vector<int> adj[], int s, int v, int dis[])
 {
-    bool visited[v] = {false};
+    bool visited[v+1] = {false};
     dis[s] = 0;
     visited[s] = true;
     queue<int> q;
@@ -43,7 +43,7 @@ int main()
 { 
     int v, e;
     cin >> v >> e;
-    vector<int> adj[v];
+    vector<int> adj[v+1];
     for (int i = 0; i < e; i++)
     {
         int x, y;
@@ -52,9 +52,10 @@ int main()
     }
     int s;
     cin >> s;
-    int dis[v] = {INT_MAX};
+    int dis[v+1];
+    fill(dis, dis+v+1, INT_MAX);
     shortest_path(adj, s, v, dis);
-    for(int i =0; i<v; i++)
+    for(int i =1; i <= v; i++)
     {
         cout << dis[i] << " ";
     }

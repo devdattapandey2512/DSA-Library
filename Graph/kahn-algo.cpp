@@ -60,10 +60,7 @@ int main()
         indegree[y]++;
         Addedge(adj, x, y);
     }
-    if(kahn_algorithm(adj, indegree, v) == true)
-    cout << "Yes";
-    else
-    cout << "No";
-    
+    cout << (kahn_algorithm(adj, indegree, v) ? "Yes":"No");
+
     return 0; 
 } 
