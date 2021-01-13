@@ -14,74 +14,52 @@
 
 using namespace std;
 
+const int N = 300500;
 
-ll fact[LIMIT];
+ll fact[N];
+ll invFact[N];
 
-ll power(ll x, unsigned ll y, ll p)
-{
+ll fast_pow(ll a, ll p) {
 	ll res = 1;
-
-	x = x % p;
-
-	if (x == 0) return 0;
-	while (y > 0)
-	{
-
-		if (y & 1)
-			res = (res * x) % p;
-
-		y = y >> 1;
-		x = (x * x) % p;
+	while (p) {
+		if (p % 2 == 0) {
+			a = (a * a) % mod;
+			p /= 2;
+		} else {
+			res = (res * a) % mod;
+			p--;
+		}
 	}
 	return res;
 }
 
-ll modinv(ll n, ll p)
-{
-	return power(n, p - 2, p);
-}
-
-ll mul(ll a, ll b)
-{
-	ll res = ((a % mod) * (b % mod)) % mod;
-
-	return res;
-}
-
-
-ll nCr(ll n, ll r, ll m)
-{
-	if (r == 0)
-		return 1;
-
-	return (((fact[n] * modinv(fact[n - r], mod)) % m) * modinv(fact[r], mod)) % m;
-}
-
-void factorial()
-{
-	fact[0] = 1;
-	fact[1] = 1;
-	for (int j = 2; j < LIMIT; j++)
-	{
-		fact[j] = (1ll * fact[j - 1] * j) % mod;
+ll C(int n, int k) {
+	if (k > n) {
+		return 0;
 	}
+	return fact[n] * invFact[k] % mod * invFact[n - k] % mod;
 }
 
 void solve()
 {
-	// code here
+	//code here
+	//to calculate nCr call function c(n, r)
 }
 
-int main()
-{
-	std::ios::sync_with_stdio(false);
-	factorial();
-	int T;
-	cin >> T;
-	// cin.ignore(); must be there when using getline(cin, s)
-	while (T--)
+int main() {
+
+	fact[0] = invFact[0] = 1;
+
+	for (int i = 1; i < N; i++)
+	{
+		fact[i] = (fact[i - 1] * i) % mod;
+		invFact[i] = fast_pow(fact[i], mod - 2);
+	}
+
+	int t;
+	cin >> t;
+	while (t--)
 	{
 		solve();
 	}
-	return 0;
 }
